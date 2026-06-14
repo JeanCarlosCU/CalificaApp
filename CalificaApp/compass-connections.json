@@ -1,0 +1,25 @@
+{
+  "type": "Compass Connections",
+  "version": {
+    "$numberInt": "1"
+  },
+  "connections": [
+    {
+      "id": "a1e5c9ac-74c2-4e47-9195-a50f0ef89276",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1781199359420"
+        }
+      },
+      "favorite": {
+        "name": "Calificaciones",
+        "color": "color1"
+      },
+      "savedConnectionType": "recent",
+      "connectionOptions": {
+        "connectionString": "mongodb://localhost:27017/",
+        "oidc": {}
+      }
+    }
+  ]
+}
