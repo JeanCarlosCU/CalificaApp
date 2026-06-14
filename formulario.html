@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captura de Datos</title>
+
+    <style>
+        
+        body{
+            margin:0;
+            padding:20px;
+            font-family:Arial;
+            background:linear-gradient(135deg,#85f074,#0b8700);
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        .contenedor{
+            width:100%;
+            max-width:500px;
+            background:white;
+            padding:30px;
+            border-radius:20px;
+            box-shadow:0px 0px 20px rgba(0,0,0,0.2);
+        }
+        h2{
+            text-align:center;
+            color:#0b8700;
+        }
+        select, input{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+            margin-bottom:10px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            box-sizing:border-box;
+        }
+        button{
+            width:100%;
+            padding:12px;
+            background:#0b8700;
+            color:white;
+            border:none;
+            border-radius:10px;
+            font-size:16px;
+            cursor:pointer;
+        }
+        button:hover{
+            background:#004912;
+        }
+        .seccion-formulario{
+            display:none;
+        }
+        a{
+            display:block;
+            text-align:center;
+            margin-top:20px;
+            text-decoration:none;
+            color:#0b8700;
+        }
+    </style>
+
+    <script>
+
+        function cambiarFormulario() {
+            var seleccion = document.getElementById("tipo_documento").value;
+            var secciones = document.getElementsByClassName("seccion-formulario");
+            for (var i = 0; i < secciones.length; i++) {
+                secciones[i].style.display = "none";
+                var inputs = secciones[i].querySelectorAll("input");
+                inputs.forEach(input => input.removeAttribute("required"));
+            }
+            if (seleccion) {
+                var seccionActiva = document.getElementById("form_" + seleccion);
+                if (seccionActiva) {
+                    seccionActiva.style.display = "block";
+                    var inputsActivos = seccionActiva.querySelectorAll("input");
+                    inputsActivos.forEach(input => {
+                        if(input.name !== "u1" && input.name !== "u2" && input.name !== "u3") {
+                            input.setAttribute("required", "required");
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div class="contenedor">
+        <h2>Registrar Información</h2>
+        <form action="/guardar" method="POST">
+            <label for="tipo_documento">Selecciona qué deseas registrar:</label>
+            <select name="tipo_documento" id="tipo_documento" onchange="cambiarFormulario()" required>
+                <option value="">-- Seleccionar --</option>
+                <option value="alumno">Alumno</option>
+                <option value="maestro">Docente</option>
+                <option value="materia">Materia</option>
+                <option value="calificacion">Calificación</option>
+            </select>
+
+            <div id="form_alumno" class="seccion-formulario">
+                <input type="text" name="nombre_alumno" placeholder="Nombre del Alumno">
+                <input type="text" name="matricula" placeholder="Matrícula del Alumno">
+                <input type="text" name="materia_alumno" placeholder="Materia que cursará">
+                <input type="text" name="maestro_alumno" placeholder="Nombre del Maestro (Opcional)">
+            </div>
+
+            <div id="form_maestro" class="seccion-formulario">
+                <input type="text" name="nombre_maestro" placeholder="Nombre del Docente">
+                <input type="text" name="materia_maestro" placeholder="Materia que imparte">
+            </div>
+
+            <div id="form_materia" class="seccion-formulario">
+                <input type="text" name="nombre_materia" placeholder="Nombre de la Materia">
+            </div>
+
+            <div id="form_calificacion" class="seccion-formulario">
+                <input type="text" name="calif_matricula" placeholder="Matrícula del Alumno">
+                <input type="text" name="materia_calif" placeholder="Materia (Ej: Química)">
+                <input type="number" name="u1" step="0.1" placeholder="Calificación Unidad 1 (U1)">
+                <input type="number" name="u2" step="0.1" placeholder="Calificación Unidad 2 (U2)">
+                <input type="number" name="u3" step="0.1" placeholder="Calificación Unidad 3 (U3)">
+            </div>
+
+            <button type="submit" style="margin-top: 15px;">Guardar Registro</button>
+        </form>
+        <a href="javascript:history.back()">Volver al Perfil</a>
+    </div>
+
+</body>
+
+</html>
