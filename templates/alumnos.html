@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Gestion de Alumnos</h2>
+
+<form action="{{ '/alumnos?edit_id=' + alumno_edit._id|string if alumno_edit else '/agregar_alumno' }}" method="POST">
+    <input type="text" name="matricula" placeholder="Matrícula" value="{{ alumno_edit.matricula if alumno_edit else '' }}" required>
+    <input type="text" name="nombre" placeholder="Nombre" value="{{ alumno_edit.nombre if alumno_edit else '' }}" required>
+    <input type="text" name="apellidos" placeholder="Apellidos" value="{{ alumno_edit.apellidos if alumno_edit else '' }}" required>
+    <input type="email" name="correo" placeholder="Correo electrónico" value="{{ alumno_edit.correo if alumno_edit else '' }}" required>
+    <input type="date" name="fecha" value="{{ alumno_edit.fecha if alumno_edit else '' }}" required>
+    <button type="submit">{{ 'Modificar Información' if alumno_edit else 'Guardar Alumno' }}</button>
+    {% if alumno_edit %}<a href="/alumnos">Cancelar</a>{% endif %}
+    
+</form>
+
+<table>
+    
+    <tr>
+        
+        <th>Matrícula</th>
+        <th>Nombre</th>
+        <th>Acción</th>
+        
+    </tr>
+    
+    {% for a in lista %}
+    
+    <tr>
+        
+        <td>{{ a.matricula }}</td>
+        <td>{{ a.nombre }} {{ a.apellidos }}</td>
+        <td>
+            
+            <a href="/alumnos?edit_id={{ a._id }}">Editar</a> | 
+            <a href="/eliminar_alumno/{{ a._id }}" onclick="return confirm('¿Seguro que deseas eliminar a este alumno?');">Eliminar</a>
+            
+        </td>
+        
+    </tr>
+    
+    {% endfor %}
+    
+</table>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Gestion de Materias</h2>
+
+<form action="{{ '/materias?edit_id=' + materia_edit._id|string if materia_edit else '/agregar_materia' }}" method="POST">
+    <input type="text" name="codigo" placeholder="Código de Materia" value="{{ materia_edit.codigo if materia_edit else '' }}" required>
+    <input type="text" name="nombre" placeholder="Nombre de la Asignatura" value="{{ materia_edit.nombre if materia_edit else '' }}" required>
+    <input type="number" name="horas" placeholder="Horas semanales" value="{{ materia_edit.horas if materia_edit else '' }}" required>
+    <input type="number" name="creditos" placeholder="Créditos" value="{{ materia_edit.creditos if materia_edit else '' }}" required>
+    <button type="submit">{{ 'Modificar Información' if materia_edit else 'Guardar Materia' }}</button>
+    {% if materia_edit %}<a href="/materias">Cancelar</a>{% endif %}
+    
+</form>
+
+<table>
+    
+    <thead>
+        
+        <tr>
+            
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Acción</th>
+            
+        </tr>
+        
+    </thead>
+    
+    <tbody>
+        
+        {% for m in lista %}
+        
+        <tr>
+            
+            <td>{{ m.codigo }}</td>
+            <td>{{ m.nombre }}</td>
+            <td>
+                
+                <a href="/materias?edit_id={{ m._id }}">Editar</a> | 
+                <a href="/eliminar_materia/{{ m._id }}" onclick="return confirm('¿Seguro que deseas eliminar esta materia?');">Eliminar</a>
+                
+            </td>
+            
+        </tr>
+        
+        {% endfor %}
+        
+    </tbody>
+    
+</table>
+
+{% endblock %}

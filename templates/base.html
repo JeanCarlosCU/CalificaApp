@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    
+</head>
+
+<body>
+
+
+    <div class="contenedor">
+        
+        <nav>
+            
+            <nav class="navbar bg-body-tertiary">
+    <div class="container">
+    <a class="navbar-brand" href="/">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTACvFkq1cKRkKs2JbDEKHCPX9IS88mqV4JsQ&s" alt="LOGO" width="60" height="60">
+    </a>
+    </div>
+</nav>
+
+            <a href="/alumnos">Alumnos</a> | 
+            <a href="/maestros">Maestros</a> | 
+            <a href="/materias">Materias</a> |
+            <a href="/grupos">Grupos</a>
+
+        </nav>
+        
+        <hr>
+        
+        {% block content %}{% endblock %}
+        
+    </div>
+    
+</body>
+
+</html>

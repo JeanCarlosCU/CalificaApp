@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Gestion de Maestros</h2>
+
+<form action="{{ '/maestros?edit_id=' + maestro_edit._id|string if maestro_edit else '/agregar_maestro' }}" method="POST">
+    <input type="text" name="num_empleado" placeholder="No. de Empleado" value="{{ maestro_edit.num_empleado if maestro_edit else '' }}" required>
+    <input type="text" name="nombre" placeholder="Nombre completo" value="{{ maestro_edit.nombre if maestro_edit else '' }}" required>
+    <input type="text" name="especialidad" placeholder="Especialidad" value="{{ maestro_edit.especialidad if maestro_edit else '' }}" required>
+    <input type="text" name="telefono" placeholder="Teléfono" value="{{ maestro_edit.telefono if maestro_edit else '' }}" required>
+    <select name="turno">
+        <option value="Matutino" {% if maestro_edit and maestro_edit.turno == 'Matutino' %}selected{% endif %}>Matutino</option>
+        <option value="Vespertino" {% if maestro_edit and maestro_edit.turno == 'Vespertino' %}selected{% endif %}>Vespertino</option>
+    </select>
+    <button type="submit">{{ 'Modificar Información' if maestro_edit else 'Guardar Maestro' }}</button>
+    {% if maestro_edit %}<a href="/maestros">Cancelar</a>{% endif %}
+    
+</form>
+
+<table>
+    
+    <tr>
+        
+        <th>No. Empleado</th>
+        <th>Nombre</th>
+        <th>Especialidad</th>
+        <th>Acción</th>
+        
+    </tr>
+    
+    {% for m in lista %}
+    
+    <tr>
+        
+        <td>{{ m.num_empleado }}</td>
+        <td>{{ m.nombre }}</td>
+        <td>{{ m.especialidad }}</td>
+        <td>
+            
+            <a href="/maestros?edit_id={{ m._id }}">Editar</a> | 
+            <a href="/eliminar_maestro/{{ m._id }}" onclick="return confirm('¿Seguro que deseas eliminar a este maestro?');">Eliminar</a>
+            
+        </td>
+        
+    </tr>
+    
+    {% endfor %}
+    
+</table>
+
+{% endblock %}
